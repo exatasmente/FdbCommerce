@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-navbar  align-title="center">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-buttons end>
+          <button ion-button icon-only  color="light" (click)="openSearch()">
+              <ion-icon name="search"></ion-icon>
+            </button>
+      </ion-buttons>
+      <ion-title>
+        FDBCommerce
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content fullscreen>
+    
+<!--    
+      <ion-fab right bottom >
+        <button ion-fab >
+          <ion-icon name="more"></ion-icon>
+        </button>
+        <ion-fab-list side="top">
+          <button ion-fab  (click)="openSearch()">
+            <ion-icon name="search"></ion-icon>
+          </button>
+          <button ion-fab  (click)="openCart()">
+            <ion-icon name="cart"></ion-icon>
+          </button>
+        </ion-fab-list>
+      </ion-fab>
+    -->    
+    <ion-card>
+      <ion-slides autoplay="3000">
+        <ion-slide *ngFor="let image of [1,2,3,4]">
+          <img src="http://placehold.it/350x200">
+        </ion-slide>
+      </ion-slides>
+    </ion-card>
+    <div class="menuHeaderSpacer"></div>
+    <ion-grid>
+      <ion-row>
+        <ion-slides speed="600" effect="fade" pager paginationType="progress">
+          <ion-slide *ngFor="let product of products" (click)="openProductPage(product)">
+            <ion-card>
+              <img [src]="product.imagens[0].src | safe:'url'" style="width: 100% !important; height: 360px !important ;">
+              <h1>{{product.nome}}</h1>
+              <p [innerHTML]="product.descricao.substr(0,50)+'...'"></p>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-row>
+    </ion-grid>
+    <div class="spacer"></div>
+    <ion-list >
+      <ion-item *ngFor="let product of moreProducts" (click)="openProductPage(product)">
+        <ion-thumbnail item-left>
+          <img [src]="product.imagens[0].src"> 
+        </ion-thumbnail>
+        <h2>{{product.nome}}</h2>
+        <p>
+          <span [innerHTML]="product.descricao.substr(0,30)+'...'"></span>
+          <span [innerHTML]="product.preco_padrao"></span>
+        </p>
+        <button ion-button icon clear item-right >
+          <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-list>
+    <!-- 
+    <ion-infinite-scroll (ionInfinite)="loadMoreProducts($event)">
+      <ion-infinite-scroll-content>
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+   -->
+  
+  </ion-content>

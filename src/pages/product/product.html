@@ -1,0 +1,158 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Detalhes</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="atual">
+      <ion-segment-button value="Visão Geral">
+        Visão Geral
+      </ion-segment-button>
+      <ion-segment-button value="Informações">
+        Informações
+      </ion-segment-button>
+      <!--
+        <ion-segment-button value="Avaliações">
+          Avaliações
+        </ion-segment-button>
+      -->
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div [ngSwitch]="atual">
+    <div *ngSwitchCase="'Visão Geral'">
+      <ion-card>
+
+        <ion-slides autoplay="3000" pager>
+          <ion-slide *ngFor="let image of produto.imagens">
+            <img [src]="image.src" style="width: 100% !important; height: 360px !important ;">
+          </ion-slide>
+        </ion-slides>
+
+        <ion-card-content>
+          <ion-card-title>
+            {{produto.nome}} &nbsp;
+
+            <ion-chip *ngFor="let cat of produto.categorias" style="margin-left:5px;">
+              <ion-label color="amazonia">
+                {{cat.nomeCategoria}}
+              </ion-label>
+            </ion-chip>
+
+            <ion-label style="margin-left: 10%;">
+              <h1>
+                $ {{produto.preco_padrao}}
+              </h1>
+            </ion-label>
+          </ion-card-title>
+
+
+          <button ion-button icon-left block outline large>
+            <ion-icon name="cart"></ion-icon> Adicionar
+          </button>
+        </ion-card-content>
+      </ion-card>
+      <!--
+        <div class="relatedItens">
+          <ion-card>
+            <ion-slides>
+              <ion-slide *ngFor="let item of related" (click)="openDetails(item)">
+                <ion-card>
+                  <ion-item>
+                    <img [src]="item.images[0].src">
+                  </ion-item>
+                  <ion-card-title>
+                    <b>{{item.title}}</b>
+                  </ion-card-title>
+                  <p>
+                    <b>$ {{item.price}}</b>
+                  </p>
+                </ion-card>
+              </ion-slide>
+            </ion-slides>
+          </ion-card>
+        </div>
+        <ion-infinite-scroll *ngIf="!ready" (ionInfinite)="loadRelated($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+  -->
+    </div>
+    <div *ngSwitchCase="'Informações'">
+      <ion-card>
+        <ion-card-content>
+          <b>
+            <h1>{{produto.nome}}</h1>
+          </b>
+          <p [innerHTML]="produto.descricao"></p>
+          <ion-card-title *ngIf="produto.meta_dados.length > 0">
+            Detalhes
+
+          </ion-card-title>
+
+          <ion-grid *ngIf="produto.meta_dados.length > 0">
+            <div *ngFor="let att of produto.meta_dados">
+              <ion-row>
+                <div *ngIf="att.chave != 'opcoes'">
+                <ion-col col-4 style="text-align:left !important;">
+                  <b> {{att.chave}} </b>
+                </ion-col>
+                  <ion-col style="text-align:right !important;">
+                    <ion-row *ngFor="let option of att.valor" style="text-align:right !important;">
+
+                      <span>
+                        <b> {{option}} </b>
+                      </span>
+                    </ion-row>
+
+                  </ion-col>
+                </div>
+              </ion-row>
+            </div>
+          </ion-grid>
+          -->
+        </ion-card-content>
+      </ion-card>
+      <!--
+        <button ion-button icon-left block outline large color="amazonia" (click)="addToCart(product)">
+          <ion-icon name="cart"></ion-icon> Adicionar
+        </button>
+  -->
+    </div>
+    <!--
+      <div *ngSwitchCase="'Avaliações'">
+        <ion-list>
+  
+          <ion-card *ngFor="let review of reviews">
+  
+            <ion-grid>
+              <ion-row>
+                <h2>{{review.reviewer_name}}</h2>
+                <ion-row>
+                  <ion-col>
+                    <ion-icon *ngIf="review.rating > 0" name="star" color="amazonia"></ion-icon>
+                    <ion-icon *ngIf="review.rating > 1" name="star" color="amazonia"></ion-icon>
+                    <ion-icon *ngIf="review.rating > 2" name="star" color="amazonia"></ion-icon>
+                    <ion-icon *ngIf="review.rating > 3" name="star" color="amazonia"></ion-icon>
+                    <ion-icon *ngIf="review.rating > 4" name="star" color="amazonia"></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </ion-row>
+              <ion-row>
+                <ion-col style="text-align:left !important;">
+                  <p>
+                    {{review.review}}
+                  </p>
+                </ion-col>
+              </ion-row>
+  
+            </ion-grid>
+          </ion-card>
+  
+        </ion-list>
+  
+      </div>
+  
+  -->
+  </div>
+</ion-content>
